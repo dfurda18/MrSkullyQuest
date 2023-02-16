@@ -93,6 +93,8 @@ public class StorySceneManager : MonoBehaviour
         // Load the first page
         
         this.LoadFirstPage();
+
+        MainManager.HideLoadingScreen();
     }
     /**
      * Method called at runtime.

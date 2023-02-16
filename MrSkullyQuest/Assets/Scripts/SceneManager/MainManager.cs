@@ -61,7 +61,6 @@ public class MainManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(LoaderUI);
-
         levels = new List<string>();
         levelTypes = new List<int>();
         currentLevel = 0;
@@ -198,9 +197,18 @@ public class MainManager : MonoBehaviour
             {
                 progressSlider.value = 1;
                 asyncOperation.allowSceneActivation = true;
-                LoaderUI.SetActive(false);
+                
             }
             yield return null;
         }
+    }
+    /**
+     * Hides the loading screen
+     * @author Dario Urdapilleta
+     * @since 02/16/2023
+     */
+    public static void HideLoadingScreen()
+    {
+        Instance.LoaderUI.SetActive(false);
     }
 }
