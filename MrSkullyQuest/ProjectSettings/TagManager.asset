@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Orientation1
+  - StoryTemporaryImage
   layers:
   - Default
   - TransparentFX
