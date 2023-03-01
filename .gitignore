@@ -11,6 +11,7 @@
 [Tt]emp/
 [Uu]nityGenerated/
 [Uu]ser[Ss]ettings/
+.vs/
 
 # file on crash reports
 sysinfo.txt
