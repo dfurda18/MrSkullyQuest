@@ -85,6 +85,42 @@
                     ]
                 }
             ]
+        },
+        {
+            "background": "Assets/Images/StoryScenes/Backgrounds/Background_CastleChamber.png",
+            "dialogues": [
+                {
+                    "character" : "Narrator",
+                    "dialogue" : "Upon finding the scroll, he casted the spell almost perfectly.",
+                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "animations" : [
+                        {
+                            "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyCasting.png",
+                            "speed" : 10,
+                            "startPosition" : {
+                                "x" : 0,
+                                "y" : 0
+                            },
+                            "endPosition" : {
+                                "x" : 0,
+                                "y" : 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "character" : "Narrator",
+                    "dialogue" : "He just made one single and terrible mistake...",
+                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "animations" : []
+                },
+                {
+                    "character" : "Narrator",
+                    "dialogue" : "He pronounced \"immorality\" instead.",
+                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "animations" : []
+                }
+            ]
         }
     ]
 }
