@@ -9,24 +9,41 @@ public class SkullyController : MonoBehaviour
     public float jumpForce = 7f;
     public LayerMask groundLayer;
     public float raycastDistance = 0.6f;
+    
+    private bool isGrounded;
+    private float distToGround;
+
+    private bool canDash = true;
+    private bool isDashing;
+    private float dashPower = 24.0f;
+    private float dashTime = 0.8f;
+    private float dashCool = 1f;
 
     private new Rigidbody rigidBody;
-    private bool isGrounded;
+    private new TrailRenderer trailRenderer;
 
+   
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = gameObject.GetComponent<Rigidbody>();    
+        rigidBody = gameObject.GetComponent<Rigidbody>();
+        trailRenderer = gameObject.GetComponent<TrailRenderer>();
+        //distToGround = collider.bounds.extents.y;
+        distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDashing)
+            return;
 
         //Ground check
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
+        //if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
+        if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f))
             isGrounded = true;
         else
             isGrounded = false;
@@ -63,6 +80,32 @@ public class SkullyController : MonoBehaviour
         {
             gameObject.transform.position = new Vector3(0, 0.5f, 0);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+
+
+
+    }
+
+    private IEnumerator Dash() 
+    {
+        canDash = false;
+        isDashing = true;
+        //float originalGravity = rigidBody.gravityScale;
+        rigidBody.useGravity = false;
+        //rigidBody.gravityScale = 0f;
+        rigidBody.velocity = new Vector3(0f, 0f, transform.localScale.z * dashPower);
+        trailRenderer.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        trailRenderer.emitting = false;
+        //rigidBody.gravityScale = originalGravity;
+        rigidBody.useGravity = true;
+        isDashing = false;
+        yield return new WaitForSeconds(dashCool);
+        canDash = true;
 
     }
 }
