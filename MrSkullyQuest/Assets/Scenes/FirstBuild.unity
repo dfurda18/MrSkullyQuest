@@ -625,6 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionZ: 40
   floorChunkNumber: 0
+  numberOfSkips: 0
   creatingFloorChunk: 0
   floorChunksArray:
   - {fileID: 8722643005163840630, guid: cadfb0c781953cc4893e94c829593484, type: 3}
@@ -688,7 +689,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2014062520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fadda78bc9dadd646ba7c59b4707c1db, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ec17f6901bd66e4f996ffb6f2ec3c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2144953397}
@@ -855,15 +856,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2144953393}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1e7d5b652f2e84b87dae58ad91ae7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a538187bbea97849857012a719bf558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 7
   jumpForce: 8
-  speedCap: 15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   raycastDistance: 0.6
 --- !u!54 &2144953399
 Rigidbody:
