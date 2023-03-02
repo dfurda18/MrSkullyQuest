@@ -11,16 +11,18 @@ public class SkullyController : MonoBehaviour
     public float raycastDistance = 0.6f;
     
     private bool isGrounded;
-    private float distToGround;
+    public float distToGround;
 
     private bool canDash = true;
     private bool isDashing;
-    private float dashPower = 24.0f;
-    private float dashTime = 0.8f;
-    private float dashCool = 1f;
+    public float dashPower = 24.0f;
+    public float dashTime = 0.8f;
+    public float dashCool = 1f;
 
     private new Rigidbody rigidBody;
     private new TrailRenderer trailRenderer;
+    public Vector3 direction;
+    public Vector3 horizontal;
 
    
     
@@ -30,11 +32,23 @@ public class SkullyController : MonoBehaviour
     {
         rigidBody = gameObject.GetComponent<Rigidbody>();
         trailRenderer = gameObject.GetComponent<TrailRenderer>();
+        direction = gameObject.transform.forward;
+        horizontal = gameObject.transform.right;
         //distToGround = collider.bounds.extents.y;
-        distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
+        //distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
         if(MainManager.Instance != null)
         {
             MainManager.HideLoadingScreen();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        rigidBody.AddForce(direction * speed);
+
+        if (rigidBody.velocity.magnitude > speed && !isDashing)
+        {
+            rigidBody.velocity = rigidBody.velocity.normalized * speed;
         }
     }
 
@@ -47,7 +61,8 @@ public class SkullyController : MonoBehaviour
         //Ground check
         RaycastHit hit;
         //if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
-        if (Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f))
+        
+        if (Physics.Raycast(transform.position, -Vector3.up, distToGround))
             isGrounded = true;
         else
             isGrounded = false;
@@ -55,15 +70,17 @@ public class SkullyController : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            rigidBody.AddForce(Vector3.right * speed);
+            //rigidBody.AddForce(Vector3.right * speed); 
+            rigidBody.AddForce(horizontal*speed);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            rigidBody.AddForce(-Vector3.right * speed);
+            //rigidBody.AddForce(-Vector3.right * speed);
+            rigidBody.AddForce(-horizontal * speed);
         }
 
 
-        rigidBody.AddForce(Vector3.forward * speed);
+        
 
         //Jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -82,9 +99,6 @@ public class SkullyController : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-
-
-
     }
 
     private IEnumerator Dash() 
@@ -94,16 +108,28 @@ public class SkullyController : MonoBehaviour
         //float originalGravity = rigidBody.gravityScale;
         rigidBody.useGravity = false;
         //rigidBody.gravityScale = 0f;
-        rigidBody.velocity = new Vector3(0f, 0f, transform.localScale.z * dashPower);
+        rigidBody.velocity = direction * dashPower;
         trailRenderer.emitting = true;
         yield return new WaitForSeconds(dashTime);
         trailRenderer.emitting = false;
         //rigidBody.gravityScale = originalGravity;
         rigidBody.useGravity = true;
-        rigidBody.velocity = new Vector3(0f, 0f, transform.localScale.z * speed);
+        rigidBody.velocity = direction * speed;
         isDashing = false;
         yield return new WaitForSeconds(dashCool);
         canDash = true;
 
+    }
+
+    private void OnTriggerEnter(Collider collision) //void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("TurnCollider"))
+        {
+            Debug.Log(collision.gameObject.transform.forward);
+            direction = collision.gameObject.transform.forward;
+            horizontal = collision.gameObject.transform.right;
+            
+        }
     }
 }

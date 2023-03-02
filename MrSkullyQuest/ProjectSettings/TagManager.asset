@@ -7,6 +7,9 @@ TagManager:
   - CinemachineTarget
   - Orientation1
   - StoryTemporaryImage
+  - Item
+  - Door
+  - TurnCollider
   layers:
   - Default
   - TransparentFX
@@ -17,8 +20,6 @@ TagManager:
   - MainLayer
   - Canvaslayer
   - Player
-  - 
-  - 
   - 
   - 
   - 
