@@ -17,7 +17,7 @@ public class MainManager : MonoBehaviour
     /**
      * The type of levels enum
      */
-    private enum LevelType { MAIN_MENU = 0, STORY = 2, GAME = 1 }
+    private enum LevelType { MAIN_MENU = 0, STORY = 1, GAME = 2 }
     /**
      * The location of the levels directory
      */
