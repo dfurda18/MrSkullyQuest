@@ -10,6 +10,7 @@ using UnityEngine.Rendering.Universal.Internal;
 using Unity.VisualScripting;
 using System.IO;
 using System.Runtime.CompilerServices;
+using static StoryAnimation;
 
 /**
  * This class represents a story scene manager.
@@ -67,6 +68,15 @@ public class StorySceneManager : MonoBehaviour
      * The animation sequences.
      */
     private List<DG.Tweening.Sequence> sequences;
+    /**
+     * The frameToFrameAnimation 
+     */
+    private List<StoryAnimation> frameToFrameAnimation;
+    /**
+     * The frameToFrameAnimationObjects 
+     */
+    private List<GameObject> frameToFrameAnimationObjects;
+
 
     /**
      * Method called at the start.
@@ -74,11 +84,12 @@ public class StorySceneManager : MonoBehaviour
     public void Start()
     {
         // Initiate all values.
-        this.jsonURL = MainManager.GetCurrentLevel();
+        this.jsonURL = MainManager.GetCurrentLevel() != "" ? MainManager.GetCurrentLevel() : Application.dataPath + "/Content/01_Story_Introduction - copia.json";
         StreamReader reader = new StreamReader(jsonURL);
         this.images = new Dictionary<string, GameObject>();
         this.sequences = new List<DG.Tweening.Sequence>();
-
+        this.frameToFrameAnimation = new List<StoryAnimation>();
+        this.frameToFrameAnimationObjects = new List<GameObject>();
 
         // Read the file and create all the pages
         string json = reader.ReadToEnd();
@@ -101,6 +112,10 @@ public class StorySceneManager : MonoBehaviour
      */
     public void Update()
     {
+        for(int currentAnimation = 0; currentAnimation < this.frameToFrameAnimation.Count; currentAnimation++)
+        {
+            this.frameToFrameAnimationObjects[currentAnimation].GetComponent<Image>().sprite = this.frameToFrameAnimation[currentAnimation].GetCurrentSprite(Time.deltaTime);
+        }
         if (Input.GetButtonDown("Submit"))
         {
             if(this.dialogue.GetComponent<TextTimer>().ShowAll())
@@ -159,6 +174,12 @@ public class StorySceneManager : MonoBehaviour
             sequence.Kill();
         }
         this.sequences.Clear();
+
+        foreach (StoryAnimation animation in this.frameToFrameAnimation)
+        {
+            animation.animationImages.Clear();
+        }
+        this.frameToFrameAnimation.Clear();
 
         // Destroy all the animation objects
         foreach (Transform t in this.backgroundContainer.transform) {
@@ -246,12 +267,34 @@ public class StorySceneManager : MonoBehaviour
             imgObject.tag = StorySceneManager.TAG;
             this.images.Add(animation.id, imgObject);
         }
-        // Create the sequence
-        DG.Tweening.Sequence sequence = DOTween.Sequence();
-        if(imgObject != null)
+        // Handle the animation
+        switch(animation.type)
         {
-            // Animate the object
-            sequence.Append(imgObject.transform.DOMove(animation.endPosition, animation.speed).SetEase(Ease.OutQuint));
+            case AnimationType.TRASLATION:
+                // Create the sequence
+                DG.Tweening.Sequence sequence = DOTween.Sequence();
+                if (imgObject != null)
+                {
+                    // Animate the object
+                    sequence.Append(imgObject.transform.DOMove(animation.endPosition, animation.speed).SetEase(Ease.OutQuint));
+                }
+                break;
+            case AnimationType.FRAME_TO_FRAME:
+                this.PlayFrameToFrame(animation, imgObject);
+                break;
         }
+        
+    }
+    /**
+     * Plays a frame-to-frame animation.
+     * @param animation The animation to play
+     * @param imageObject The object to play the animation on
+     * @author Datio Urdapilleta
+     * @since 03/07/2023
+     */
+    public void PlayFrameToFrame(StoryAnimation animation, GameObject imageObject)
+    {
+        this.frameToFrameAnimation.Add(animation);
+        this.frameToFrameAnimationObjects.Add(imageObject);
     }
 }

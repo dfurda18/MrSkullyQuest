@@ -9,6 +9,7 @@
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : [
                         {
+                            "type": "Traslation",
                             "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoung.png",
                             "speed" : 2,
                             "startPosition" : {
@@ -28,6 +29,7 @@
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : [
                         {
+                            "type": "Traslation",
                             "image" : "Assets/Images/StoryScenes/Elements/Element_Merlin.png",
                             "speed" : 2,
                             "startPosition" : {
@@ -47,6 +49,7 @@
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : [
                         {
+                            "type": "Traslation",
                             "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoung.png",
                             "speed" : 20,
                             "startPosition" : {
@@ -71,6 +74,7 @@
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : [
                         {
+                            "type": "Traslation",
                             "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoungExploring.png",
                             "speed" : 10,
                             "startPosition" : {
@@ -95,6 +99,7 @@
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : [
                         {
+                            "type": "Traslation",
                             "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyCasting.png",
                             "speed" : 10,
                             "startPosition" : {
@@ -119,6 +124,44 @@
                     "dialogue" : "He pronounced \"immorality\" instead.",
                     "avatar" : "Assets/Images/Avatars/Narrator.png",
                     "animations" : []
+                }
+            ]
+        },
+        {
+            "background": "Assets/Images/StoryScenes/Backgrounds/PastBackground.png",
+            "dialogues": [
+                {
+                    "character" : "Narrator",
+                    "dialogue" : "Mr. Skully realized this and tried to halt. But Alas! This caused a series of secondary effects.",
+                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "animations" : [
+                        {
+                            "type": "Traslation",
+                            "image" : "Assets/Images/StoryScenes/Elements/Transition_Animation/transition00.png",
+                            "speed" : 10,
+                            "startPosition" : {
+                                "x" : 0,
+                                "y" : 0
+                            },
+                            "endPosition" : {
+                                "x" : 0,
+                                "y" : 0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "character" : "Narrator",
+                    "dialogue" : "Bewitching his body to rot and all remained were his bones.",
+                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "animations" : [
+                        {
+                            "type": "FrameToFrame",
+                            "image" : "Assets/Images/StoryScenes/Elements/Transition_Animation/transition00.png",
+                            "speed" : 1,
+                            "loop" : false
+                        }
+                    ]
                 }
             ]
         }

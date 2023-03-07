@@ -12,6 +12,10 @@ using UnityEngine;
 public class JSONAnimations
 {
     /**
+     * The animation type
+     */
+    public string type;
+    /**
      * The image url
      */
     public string image;
@@ -27,4 +31,8 @@ public class JSONAnimations
      * The end position
      */
     public JSON2DPosition endPosition;
+    /**
+     * Whether the animation loops or not
+     */
+    public bool loop;
 }
