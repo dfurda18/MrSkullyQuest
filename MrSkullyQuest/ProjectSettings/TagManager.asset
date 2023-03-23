@@ -10,6 +10,10 @@ TagManager:
   - Item
   - Door
   - TurnCollider
+  - ChunkSpawn
+  - LeftCollider
+  - CenterCollider
+  - Directions
   layers:
   - Default
   - TransparentFX
