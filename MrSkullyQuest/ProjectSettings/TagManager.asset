@@ -14,6 +14,13 @@ TagManager:
   - LeftCollider
   - CenterCollider
   - Directions
+  - LeftChunk
+  - ForwardChunk
+  - LeftDirCollider
+  - CenterDirCollier
+  - CenterDirCollider
+  - RightDirCollider
+  - RightCollider
   layers:
   - Default
   - TransparentFX

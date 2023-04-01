@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5634737905389033525}
   m_Layer: 0
-  m_Name: SapwnFront
+  m_Name: SapwnFront 0
   m_TagString: ChunkSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -576,6 +576,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4787298384090237608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2343971027573487376}
+  m_Layer: 0
+  m_Name: SapwnFront 1
+  m_TagString: ChunkSpawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2343971027573487376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787298384090237608}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.12322203, y: -0.57504916, z: -16.1}
+  m_LocalScale: {x: 0.084883, y: 0.12929083, z: 0.1863669}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1440897965442658355}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7887223352317053002
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +737,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5634737905389033525}
+  - {fileID: 2343971027573487376}
   m_Father: {fileID: 1827535113301067479}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -791,6 +823,7 @@ MonoBehaviour:
   - {fileID: 4398024347987297238}
   spawnPoints:
   - {fileID: 3515484954386277632}
+  - {fileID: 4787298384090237608}
   directionTracker: {fileID: 0}
 --- !u!1 &8596716544639591417
 GameObject:
