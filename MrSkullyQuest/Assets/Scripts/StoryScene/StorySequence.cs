@@ -31,7 +31,8 @@ public class StorySequence
     public StorySequence(string background, JSONDialogue[] dialogues)
     {
         Sprite avatar;
-        this.background = AssetDatabase.LoadAssetAtPath<Sprite>(background);
+        Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(background);
+        this.background = sprite;
         this.dialogues = new Dialogue[dialogues.Length];
         for(int counter = 0; counter < dialogues.Length; counter++)
         {

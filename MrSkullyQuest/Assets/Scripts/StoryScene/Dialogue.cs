@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+//using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 /**
  * Class that represents a dialogue.
@@ -38,7 +38,7 @@ public class Dialogue
     {
         this.character = dialogue.character;
         this.dialogue = dialogue.dialogue;
-        this.avatar = AssetDatabase.LoadAssetAtPath<Sprite>(dialogue.avatar); ;
+        //this.avatar = AssetDatabase.LoadAssetAtPath<Sprite>(dialogue.avatar); ;
         this.animations = new StoryAnimation[dialogue.animations.Length];
         for(int counter = 0; counter < dialogue.animations.Length; counter++ )
         {

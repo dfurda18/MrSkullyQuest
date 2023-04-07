@@ -4,39 +4,87 @@ using UnityEngine;
 
 public class SkullyController : MonoBehaviour
 {
+    [Header("Skullys Data")]
+    public bool isAlive = true;
+    [Range(0,150)]
+    public int percentageLife = 100;
+    [Range(0,50)]
+    public int dashCounter = 10;
+    public bool canJump = true;
+    public bool canDoubleJump = false;
 
-    public float speed = 5f;
+
+    [Header("Movement")]
+    public float speed = 12f;
+
+    [Header("Jumping")]
     public float jumpForce = 7f;
     public LayerMask groundLayer;
+   
+
+    [Header("Ground Check")]
     public float raycastDistance = 0.6f;
-    
     private bool isGrounded;
     public float distToGround;
 
+    [Header("Keybinds")]
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode reviveKey = KeyCode.R;
+    public KeyCode dashKey = KeyCode.F;
+
+
+    [Header("Dashing")]
     private bool canDash = true;
     private bool isDashing;
     public float dashPower = 24.0f;
     public float dashTime = 0.8f;
     public float dashCool = 1f;
 
-    private new Rigidbody rigidBody;
-    private new TrailRenderer trailRenderer;
+
+    //
+    private Rigidbody rigidBody;
+    private TrailRenderer trailRenderer;
     public Vector3 direction;
     public Vector3 horizontal;
 
-   
-    
+    public bool freeze;
+    public bool activeGrapple;
+
+    [Header("Cursor Stuff")]
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
+
+    public MovementState state;
+    public enum MovementState
+    {
+        freeze,
+        grappling,
+        swinging,
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+       Cursor.SetCursor(cursorTexture,hotSpot,cursorMode);
+
+       Cursor.visible =  true;
+        
         rigidBody = gameObject.GetComponent<Rigidbody>();
         trailRenderer = gameObject.GetComponent<TrailRenderer>();
         direction = gameObject.transform.forward;
         horizontal = gameObject.transform.right;
-        //distToGround = collider.bounds.extents.y;
-        //distToGround = gameObject.GetComponent<Collider>().bounds.extents.y;
-        if(MainManager.Instance != null)
+
+        //readyToJump = true;
+        isDashing = false;
+        // This comes from the scene manager
+        if (MainManager.Instance != null)
         {
             MainManager.HideLoadingScreen();
         }
@@ -44,12 +92,16 @@ public class SkullyController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidBody.AddForce(direction * speed);
+        if (isAlive) 
+        { 
+            rigidBody.AddForce(direction * speed);
 
-        if (rigidBody.velocity.magnitude > speed && !isDashing)
-        {
-            rigidBody.velocity = rigidBody.velocity.normalized * speed;
+            if (rigidBody.velocity.magnitude > speed && !isDashing)
+            {
+                rigidBody.velocity = rigidBody.velocity.normalized * speed;
+            }
         }
+        
     }
 
     // Update is called once per frame
@@ -58,51 +110,73 @@ public class SkullyController : MonoBehaviour
         if (isDashing)
             return;
 
-        //Ground check
-        RaycastHit hit;
-        //if (Physics.Raycast(transform.position, Vector3.down, out hit, raycastDistance, groundLayer))
-        
+        //Ground check        
         if (Physics.Raycast(transform.position, -Vector3.up, distToGround))
             isGrounded = true;
         else
             isGrounded = false;
 
+        if(freeze) 
+        {
+            rigidBody.velocity = Vector3.zero;
+        }
 
+        inputHandler();
+        if (!isAlive) isDead();
+    }
+
+    public void isDead()
+    {
+        speed = 0;
+        canDash = false;
+        canJump = false;
+    }
+
+    public void resurrect() 
+    {
+        isAlive = true;
+        speed = 12f;
+        canDash = true;
+        canJump = true;
+    }
+
+
+    private void inputHandler()
+    {
         if (Input.GetAxis("Horizontal") > 0)
         {
-            //rigidBody.AddForce(Vector3.right * speed); 
-            rigidBody.AddForce(horizontal*speed);
+            rigidBody.AddForce(horizontal * speed);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            //rigidBody.AddForce(-Vector3.right * speed);
             rigidBody.AddForce(-horizontal * speed);
         }
 
-
-        
-
-        //Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // when to jump
+        if (Input.GetKey(jumpKey) && isGrounded && canJump)
         {
             rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
-
-        //Reset Pos
-
-        if (Input.GetKey(KeyCode.R))
-        {
-            gameObject.transform.position = new Vector3(0, 0.5f, 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        // when to dash
+        if (Input.GetKey(dashKey) && canDash && dashCounter>0)
         {
             StartCoroutine(Dash());
         }
+
+
+        //ressurect
+        if (Input.GetKey(reviveKey) && !isAlive)
+        {
+            //gameObject.transform.position = new Vector3(0, 0.5f, 0);
+            resurrect();
+        }
+
     }
+
 
     private IEnumerator Dash() 
     {
+        dashCounter--;
         canDash = false;
         isDashing = true;
         //float originalGravity = rigidBody.gravityScale;
@@ -110,7 +184,10 @@ public class SkullyController : MonoBehaviour
         //rigidBody.gravityScale = 0f;
         rigidBody.velocity = direction * dashPower;
         trailRenderer.emitting = true;
+        trailRenderer.SetPosition(1, gameObject.transform.position);
         yield return new WaitForSeconds(dashTime);
+        trailRenderer.SetPosition(0
+            , gameObject.transform.position);
         trailRenderer.emitting = false;
         //rigidBody.gravityScale = originalGravity;
         rigidBody.useGravity = true;
@@ -132,4 +209,65 @@ public class SkullyController : MonoBehaviour
             
         }
     }
+
+    private bool enableMovementOnNextTouch;
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true;
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+        Invoke(nameof(SetVelocity), 0.1f);
+
+        Invoke(nameof(ResetRestrictions), 3f);
+    }
+
+    private Vector3 velocityToSet;
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true;
+        rigidBody.velocity = velocityToSet;
+
+        //cam.DoFov(grappleFov);
+    }
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y;
+        float displacementY = endPoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+
+        return velocityXZ + velocityY;
+    }
+
+    public void ResetRestrictions()
+    {
+        activeGrapple = false;
+        //cam.DoFov(85f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (enableMovementOnNextTouch)
+        {
+            enableMovementOnNextTouch = false;
+            ResetRestrictions();
+
+            GetComponent<Grappling>().StopGrapple();
+        }
+    }
+
+    //void OnMouseEnter()
+    //{
+    //    Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+    //}
+
+    //void OnMouseExit()
+    //{
+    //    Cursor.SetCursor(null, Vector2.zero, cursorMode);
+    //}
+
 }
