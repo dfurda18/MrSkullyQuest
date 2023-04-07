@@ -200,10 +200,10 @@ public class SkullyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision) //void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.CompareTag("TurnCollider"))
         {
-            Debug.Log(collision.gameObject.transform.forward);
+           // Debug.Log(collision.gameObject.transform.forward);
             direction = collision.gameObject.transform.forward;
             horizontal = collision.gameObject.transform.right;
             
