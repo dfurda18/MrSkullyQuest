@@ -32,8 +32,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.15, z: -122.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
+<<<<<<< Updated upstream
   m_Children:
   - {fileID: 4330201926875246119}
+=======
+  m_Children: []
+>>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -359.999, z: 0}
@@ -144,6 +148,7 @@ MonoBehaviour:
   moveSpeed: 5
   launchVelocity: 400
   shootInterval: 1
+<<<<<<< Updated upstream
 --- !u!1 &4330201926875246118
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,3 +246,5 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
