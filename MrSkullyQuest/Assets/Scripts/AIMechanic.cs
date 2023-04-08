@@ -4,82 +4,73 @@ using UnityEngine;
 
 public class AIMechanic : MonoBehaviour
 {
-    [SerializeField] private float speed = 2.0f;
-    [SerializeField] private float hitPoints = 5.0f;
-    [SerializeField] private float rightPoints = 10.0f;
-    [SerializeField] private float leftPoints = -10.0f;
-    public float bounceForce = 10f;
-    public float hoverHeight = 2f;
-    public Transform spawnPoint;
-    [SerializeField] public List<GameObject> projectile;
-
     public Transform player;
-    public float chaseDistance = 3.0f;
-    public float moveSpeed = 3.0f;
+    public GameObject[] throwableObjects;
+    public float speed = 5f;
+    public float distanceFromPlayer = 10f;
+    public float throwInterval = 3f;
+    public float sidewaysAmplitude = 2f;
+    public LayerMask obstacleLayers;
 
-    public float launchVelocity = 750f;
-    public float shootInterval = 1.0f; // shoot every 2 seconds
-    private float shootTimer = 0f;
+    public float raycastDistance = 1f;
+    public float directionChangeSpeed = 3f;
 
-    Rigidbody rb;
+    private float currentHorizontalDirection = 1f;
+
+
+
+    private float nextThrowTime;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        shootTimer = shootInterval;
+        nextThrowTime = Time.time + throwInterval;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        if (distanceToPlayer <= chaseDistance)
-        {
-            Vector3 directionToPlayer = transform.position - player.position;
-            Vector3 newPosition = player.position + directionToPlayer.normalized * chaseDistance;
-            transform.position = Vector3.MoveTowards(transform.position, newPosition, moveSpeed * Time.deltaTime);
-        }
-
-        if (hitPoints > 0)
-        {
-            float force = hoverHeight - transform.position.y;
-
-            // Apply the upward force to the Rigidbody
-            rb.AddForce(Vector3.up * force * bounceForce);
-
-            transform.position = new Vector3(Mathf.Sin(Time.time) * speed, transform.position.y, transform.position.z);
-
-            //transform.position += Time.deltaTime * speed * Vector3.right;
-            Debug.Log("Position x:" + transform.position.x);
-
-            if (transform.position.x >= rightPoints)
-            {
-                transform.position = new Vector3(-(Mathf.Sin(Time.time) * speed), transform.position.y, transform.position.z);
-                Debug.Log("Position x:" + transform.position.x);
-                return;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            transform.position = new Vector3(0, 0, 0);
-        }
-
-        // Update the shoot timer
-        shootTimer -= Time.deltaTime;
-        if (shootTimer <= 0f)
-        {
-            Shoot();
-            shootTimer = shootInterval;
-        }
+        MaintainDistance();
+        MoveSideToSide();
+        ThrowObjects();
     }
-    void Shoot()
-    {
-        int myRandomIndex;
-        myRandomIndex = Random.Range(0, projectile.Count);
-        GameObject shooterPoint = Instantiate(projectile[myRandomIndex], spawnPoint.position, transform.rotation);
 
-        Vector3 direction = (player.position - transform.position).normalized;
-        shooterPoint.GetComponent<Rigidbody>().AddForce(direction * launchVelocity);
+    void MaintainDistance()
+    {
+        Vector3 targetPosition = player.position + Vector3.forward * distanceFromPlayer;
+        targetPosition.y = transform.position.y;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
+    }
+
+    void MoveSideToSide()
+    {
+        float horizontalMovement = Mathf.Sin(Time.time * speed * currentHorizontalDirection) * sidewaysAmplitude;
+        float verticalMovement = Mathf.Abs(Mathf.Sin(Time.time * speed)) * player.localScale.y * 0.5f;
+        Vector3 newPosition = new Vector3(player.position.x + horizontalMovement, player.position.y + verticalMovement, transform.position.z);
+
+        // Check for collision
+        RaycastHit hit;
+        Vector3 direction = newPosition - transform.position;
+        if (Physics.Raycast(transform.position, direction, out hit, raycastDistance, obstacleLayers))
+        {
+            // If an obstacle is detected, change direction and wait for the next frame
+            currentHorizontalDirection = -Mathf.Sign(currentHorizontalDirection);
+            return;
+        }
+
+        // Update the position
+        transform.position = newPosition;
+        transform.LookAt(player);
+    }
+
+    void ThrowObjects()
+    {
+        if (Time.time >= nextThrowTime)
+        {
+            GameObject throwable = throwableObjects[Random.Range(0, throwableObjects.Length)];
+            GameObject thrownObject = Instantiate(throwable, transform.position, Quaternion.identity);
+            Rigidbody rb = thrownObject.AddComponent<Rigidbody>();
+            rb.velocity = (player.position - transform.position).normalized * speed;
+
+            nextThrowTime = Time.time + throwInterval;
+        }
     }
 }
