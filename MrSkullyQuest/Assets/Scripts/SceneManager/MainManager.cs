@@ -46,6 +46,14 @@ public class MainManager : MonoBehaviour
      * The current level to load
      */
     private static int currentLevel;
+    /**
+     * The player's Max Life
+     */
+    public static int MAX_LIFE = 6;
+    /**
+     * The player's Current Life
+     */
+    public static int CURRENT_LIFE = 3;
 
     /**
      * Mewhod calld at the begining of the load
