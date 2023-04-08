@@ -11,14 +11,10 @@ public class AIMechanic : MonoBehaviour
     public float throwInterval = 3f;
     public float sidewaysAmplitude = 2f;
     public LayerMask obstacleLayers;
-
     public float raycastDistance = 1f;
-    public float directionChangeSpeed = 3f;
+    public float hoverHeight = 2f;
 
     private float currentHorizontalDirection = 1f;
-
-
-
     private float nextThrowTime;
 
     void Start()
@@ -33,6 +29,7 @@ public class AIMechanic : MonoBehaviour
         ThrowObjects();
     }
 
+    // Maintain a constant distance from the player
     void MaintainDistance()
     {
         Vector3 targetPosition = player.position + Vector3.forward * distanceFromPlayer;
@@ -40,15 +37,19 @@ public class AIMechanic : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * speed);
     }
 
+    // Move side to side and hover at the specified height
     void MoveSideToSide()
     {
         float horizontalMovement = Mathf.Sin(Time.time * speed * currentHorizontalDirection) * sidewaysAmplitude;
-        float verticalMovement = Mathf.Abs(Mathf.Sin(Time.time * speed)) * player.localScale.y * 0.5f;
-        Vector3 newPosition = new Vector3(player.position.x + horizontalMovement, player.position.y + verticalMovement, transform.position.z);
+        float verticalMovement = Mathf.Abs(Mathf.Sin(Time.time * speed)) * 0.5f * hoverHeight;
+
+        // Calculate the enemy's position relative to the player's local space
+        Vector3 localOffset = new Vector3(horizontalMovement, verticalMovement, -distanceFromPlayer);
+        Vector3 worldOffset = player.position + (player.forward * -distanceFromPlayer) + (player.right * horizontalMovement) + (player.up * verticalMovement);
 
         // Check for collision
         RaycastHit hit;
-        Vector3 direction = newPosition - transform.position;
+        Vector3 direction = worldOffset - transform.position;
         if (Physics.Raycast(transform.position, direction, out hit, raycastDistance, obstacleLayers))
         {
             // If an obstacle is detected, change direction and wait for the next frame
@@ -56,11 +57,15 @@ public class AIMechanic : MonoBehaviour
             return;
         }
 
-        // Update the position
-        transform.position = newPosition;
-        transform.LookAt(player);
+        // Smoothly update the position
+        transform.position = Vector3.Lerp(transform.position, worldOffset, Time.deltaTime * speed);
+
+        // Look at the player while maintaining the enemy's own rotation in the Y-axis
+        Vector3 lookAtPlayer = new Vector3(player.position.x, transform.position.y, player.position.z);
+        transform.LookAt(lookAtPlayer);
     }
 
+    // Throw random objects at the player's position
     void ThrowObjects()
     {
         if (Time.time >= nextThrowTime)
