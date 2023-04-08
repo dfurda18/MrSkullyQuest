@@ -6,7 +6,7 @@ using Unity.Mathematics;
 public class Grappling : MonoBehaviour
 {
     [Header("References")]
-    private SkullyController pm;
+    private SkullyController skullyController;
     public Transform cam;
     public Transform gunTip;
     public LayerMask whatIsGrappleable;
@@ -34,7 +34,7 @@ public class Grappling : MonoBehaviour
 
     private void Start()
     {
-        pm = GetComponent<SkullyController>();
+        skullyController = GetComponent<SkullyController>();
     }
 
     private void Update()
@@ -58,7 +58,7 @@ public class Grappling : MonoBehaviour
 
         grappling = true;
 
-        pm.freeze = true;
+        skullyController.freeze = true;
 
         RaycastHit hit;
         //bool isHittingSomething = Physics.Raycast(GetWorldRay(Camera.main), out hit, raycastLength);//new 
@@ -111,7 +111,7 @@ public class Grappling : MonoBehaviour
 
     private void ExecuteGrapple()
     {
-        pm.freeze = false;
+        skullyController.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
@@ -120,14 +120,14 @@ public class Grappling : MonoBehaviour
 
         if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
-        pm.JumpToPosition(grapplePoint, highestPointOnArc);
+        skullyController.JumpToPosition(grapplePoint, highestPointOnArc);
 
         Invoke(nameof(StopGrapple), 1f);
     }
 
     public void StopGrapple()
     {
-        pm.freeze = false;
+        skullyController.freeze = false;
 
         grappling = false;
 

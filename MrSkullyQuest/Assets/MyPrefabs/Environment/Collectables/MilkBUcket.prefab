@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1916331897527276921}
   - component: {fileID: 1908465449187619930}
   - component: {fileID: 1908465449187619933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MilkBUcket
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908047899488190597}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.358406, y: 1.3123437, z: -8.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.2463, y: 2.2463, z: 2.2463}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa556a614d9c78499bfbc2f7d45ad22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSFX: {fileID: 0}
+  itemSFX: {fileID: 1754758926350935513, guid: e2578a7ae549e1f40b7fd3fc8fc5d23e, type: 3}

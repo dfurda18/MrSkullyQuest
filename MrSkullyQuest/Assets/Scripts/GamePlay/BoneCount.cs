@@ -11,6 +11,7 @@ using UnityEngine;
  */
 public class BoneCount : MonoBehaviour
 {
+    
     /**
      * Reference fo the count label
      */
@@ -29,6 +30,7 @@ public class BoneCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))Collect();
         countLabel.text = count.ToString();
     }
 

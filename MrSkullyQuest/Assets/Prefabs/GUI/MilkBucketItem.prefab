@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4442587323067146494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2774472298485730868, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_Name
+      value: MilkBucketItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776015730945358572, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: itemSFX
+      value: 
+      objectReference: {fileID: 5914113118581897573}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.301
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2776496957754214990, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049088317890697627, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727806760459889274, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+      propertyPath: m_Name
+      value: AudioHeal
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+--- !u!82 &5914113118581897573 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8049088317890697627, guid: 891238197eaf08d4bb28119bf158b574, type: 3}
+  m_PrefabInstance: {fileID: 4442587323067146494}
+  m_PrefabAsset: {fileID: 0}

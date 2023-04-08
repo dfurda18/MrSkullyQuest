@@ -6,9 +6,9 @@ public class SkullyController : MonoBehaviour
 {
     [Header("Skullys Data")]
     public bool isAlive = true;
-    [Range(0,150)]
+    [Range(0, 150)]
     public int percentageLife = 100;
-    [Range(0,50)]
+    [Range(0, 50)]
     public int dashCounter = 10;
     public bool canJump = true;
     public bool canDoubleJump = false;
@@ -20,7 +20,7 @@ public class SkullyController : MonoBehaviour
     [Header("Jumping")]
     public float jumpForce = 7f;
     public LayerMask groundLayer;
-   
+
 
     [Header("Ground Check")]
     public float raycastDistance = 0.6f;
@@ -31,6 +31,7 @@ public class SkullyController : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode reviveKey = KeyCode.R;
     public KeyCode dashKey = KeyCode.F;
+    public KeyCode pauseWorld = KeyCode.P;
 
 
     [Header("Dashing")]
@@ -54,8 +55,15 @@ public class SkullyController : MonoBehaviour
     public Texture2D cursorTexture;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
-
     public MovementState state;
+
+    [Header("Screens")]
+    public Pause_Screen pause_Screen;
+    public Level_Completed level_Completed;
+    private bool isPaused = false;
+
+    [Header("Screen Elements")]
+    public BoneCount boneCount;
     public enum MovementState
     {
         freeze,
@@ -81,6 +89,7 @@ public class SkullyController : MonoBehaviour
         direction = gameObject.transform.forward;
         horizontal = gameObject.transform.right;
 
+        //screen = gameObject.GetComponent<Pause_Screen>();
         //readyToJump = true;
         isDashing = false;
         // This comes from the scene manager
@@ -123,6 +132,11 @@ public class SkullyController : MonoBehaviour
 
         inputHandler();
         if (!isAlive) isDead();
+
+        if (boneCount.GetCount() >= 20)
+        {
+            level_Completed.LevelCompleted();
+        }
     }
 
     public void isDead()
@@ -171,6 +185,25 @@ public class SkullyController : MonoBehaviour
             resurrect();
         }
 
+        //ressurect
+        if (Input.GetKeyDown(pauseWorld))
+        {
+            if (isPaused) 
+            {
+                isPaused = false;
+                pause_Screen.UnPause();
+            }
+                
+            else
+            { 
+                pause_Screen.Pause();
+                isPaused = true;
+            }
+               
+        }
+
+
+
     }
 
 
@@ -208,6 +241,14 @@ public class SkullyController : MonoBehaviour
             horizontal = collision.gameObject.transform.right;
             
         }
+
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            // Debug.Log(collision.gameObject.transform.forward);
+            boneCount.Collect();
+
+        }
+
     }
 
     private bool enableMovementOnNextTouch;
