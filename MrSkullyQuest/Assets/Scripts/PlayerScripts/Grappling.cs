@@ -11,6 +11,12 @@ public class Grappling : MonoBehaviour
     public Transform gunTip;
     public LayerMask whatIsGrappleable;
     public LineRenderer lineRenderer;
+    
+    [Header("Grap Sounds")]
+    public AudioClip grapClip;
+    public AudioSource audioSource;
+    [Range(0f, 1f)]
+    public float soundVolume = 0.7f;
 
     [Header("Grappling")]
     public float maxGrappleDistance;
@@ -111,6 +117,9 @@ public class Grappling : MonoBehaviour
 
     private void ExecuteGrapple()
     {
+
+        audioSource.PlayOneShot(grapClip, 1f);
+        
         skullyController.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CollectItem : MonoBehaviour
 {
     public AudioSource itemSFX;
-
+    //public GameObject myself;
     private void Start()
     {
         itemSFX = gameObject.GetComponent<AudioSource>();
@@ -14,7 +14,24 @@ public class CollectItem : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         itemSFX.Play();
-        this.gameObject.SetActive(false);
-       // Destroy(this.gameObject);
+        Destroy(this.gameObject, 2f);
+        //this.gameObject.SetActive(false);
+
     }
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    playEngineSound();
+    //    //Destroy(this.gameObject, 2f);
+    //}
+
+    //IEnumerator playEngineSound()
+    //{
+
+    //    itemSFX.Play();
+    //    yield return new WaitForSeconds(1.5f);
+    //    Destroy(this.gameObject, 2f);
+    //}
+
+   
 }

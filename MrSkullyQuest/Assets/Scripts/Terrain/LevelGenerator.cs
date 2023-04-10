@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
     IEnumerator GenerateFloorChunk()
     // This method is used to endlessly generate randomly selected floor chunks from the floorChunksArray
     {
-        Debug.Log("Number of skipds: " + numberOfSkips);
+        //Debug.Log("Number of skipds: " + numberOfSkips);
         floorChunkNumber = Random.Range(0, floorChunksArray.Length);            // Generates a random index
         numberOfSkips++;                                                        // Increases the number of skips
 

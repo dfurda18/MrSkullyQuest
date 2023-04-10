@@ -1,15 +1,15 @@
 {
     "stories":[
         {
-            "background": "Assets/Images/StoryScenes/Backgrounds/Background_OldBritain.png",
+            "background": "Images/StoryScenes/Backgrounds/Background_OldBritain",
             "dialogues": [
                 {
                     "character" : "Narrator",
                     "dialogue" : "Mr. Skully was formerly known as Reginald Skully the Fourth, a wizard born in the Dark Ages.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
-                            "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoung.png",
+                            "image" : "Images/StoryScenes/Elements/Element_SkullyYoung",
                             "speed" : 2,
                             "startPosition" : {
                                 "x" : 1920,
@@ -25,10 +25,10 @@
                 {
                     "character" : "Narrator",
                     "dialogue" : "He was Merlin's apprentice, the brightest of all.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
-                            "image" : "Assets/Images/StoryScenes/Elements/Element_Merlin.png",
+                            "image" : "Images/StoryScenes/Elements/Element_Merlin",
                             "speed" : 2,
                             "startPosition" : {
                                 "x" : -1920,
@@ -44,10 +44,10 @@
                 {
                     "character" : "Narrator",
                     "dialogue" : "But being stubborn, arrogant, and careless, Mr. Skully decided to leave before being ready and his teacher knew naught about it.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
-                            "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoung.png",
+                            "image" : "Images/StoryScenes/Elements/Element_SkullyYoung",
                             "speed" : 20,
                             "startPosition" : {
                                 "x" : 0,
@@ -63,15 +63,15 @@
             ]
         },
         {
-            "background": "Assets/Images/StoryScenes/Backgrounds/Background_OldBritainMap.png",
+            "background": "Images/StoryScenes/Backgrounds/Background_OldBritainMap",
             "dialogues": [
                 {
                     "character" : "Narrator",
                     "dialogue" : "He travelled back and forth Britain in search of the forbidden \"immortality\" scroll.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
-                            "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyYoungExploring.png",
+                            "image" : "Images/StoryScenes/Elements/Element_SkullyYoungExploring",
                             "speed" : 10,
                             "startPosition" : {
                                 "x" : 1920,
@@ -87,15 +87,15 @@
             ]
         },
         {
-            "background": "Assets/Images/StoryScenes/Backgrounds/Background_CastleChamber.png",
+            "background": "Images/StoryScenes/Backgrounds/Background_CastleChamber",
             "dialogues": [
                 {
                     "character" : "Narrator",
                     "dialogue" : "Upon finding the scroll, he casted the spell almost perfectly.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
-                            "image" : "Assets/Images/StoryScenes/Elements/Element_SkullyCasting.png",
+                            "image" : "Images/StoryScenes/Elements/Element_SkullyCasting",
                             "speed" : 10,
                             "startPosition" : {
                                 "x" : 0,
@@ -111,13 +111,13 @@
                 {
                     "character" : "Narrator",
                     "dialogue" : "He just made one single and terrible mistake...",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : []
                 },
                 {
                     "character" : "Narrator",
                     "dialogue" : "He pronounced \"immorality\" instead.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : []
                 }
             ]

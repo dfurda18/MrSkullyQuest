@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SkullyController : MonoBehaviour
 {
+    [Header("Skullys Sounds")]
+    public AudioSource audioSource;
+    public AudioClip jumpClip;
+    public AudioClip dashClip;
+    [Range(0f, 1f)]
+    public float soundVolume = 0.5f;
+
+
     [Header("Skullys Data")]
     public bool isAlive = true;
     [Range(0, 150)]
-    public int percentageLife = 100;
+    public float percentageLife = 100;
     [Range(0, 50)]
     public int dashCounter = 10;
     public bool canJump = true;
@@ -169,6 +177,7 @@ public class SkullyController : MonoBehaviour
         // when to jump
         if (Input.GetKey(jumpKey) && isGrounded && canJump)
         {
+            audioSource.PlayOneShot(jumpClip, soundVolume);
             rigidBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         // when to dash
@@ -211,6 +220,7 @@ public class SkullyController : MonoBehaviour
     {
         dashCounter--;
         canDash = false;
+        audioSource.PlayOneShot(dashClip, soundVolume);
         isDashing = true;
         //float originalGravity = rigidBody.gravityScale;
         rigidBody.useGravity = false;
@@ -246,6 +256,16 @@ public class SkullyController : MonoBehaviour
         {
             // Debug.Log(collision.gameObject.transform.forward);
             boneCount.Collect();
+            percentageLife += 10;
+
+        }
+
+        if (collision.gameObject.CompareTag("ItemDamage"))
+        {
+            // Debug.Log(collision.gameObject.transform.forward);
+            //boneCount.Collect();
+            percentageLife -= 10;
+            if (percentageLife <= 0) percentageLife = 0;
 
         }
 
@@ -301,14 +321,5 @@ public class SkullyController : MonoBehaviour
         }
     }
 
-    //void OnMouseEnter()
-    //{
-    //    Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
-    //}
-
-    //void OnMouseExit()
-    //{
-    //    Cursor.SetCursor(null, Vector2.zero, cursorMode);
-    //}
 
 }

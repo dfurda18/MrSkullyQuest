@@ -624,14 +624,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallPrefabsArray:
+  - {fileID: 2878424745177561228, guid: 6a7523566db4db84aa012dee44824f44, type: 3}
+  - {fileID: 8709823053889040624, guid: de1289cc19589f34fb2a92d8299cefbc, type: 3}
+  - {fileID: 9022734708541256460, guid: e2ed05d032b4535419d7f4783a8a8872, type: 3}
+  - {fileID: 1908047899488190597, guid: b06ef5d2974762244af7b98c5c2190ba, type: 3}
+  - {fileID: 1908047899488190597, guid: b06ef5d2974762244af7b98c5c2190ba, type: 3}
   - {fileID: 1085133437237860, guid: 55d86caa81761cf4cb7be80521a3b485, type: 3}
   - {fileID: 1269772399169626, guid: d1b6a91b86ff96c458c8800a7f00cce5, type: 3}
   - {fileID: 1504926191794242, guid: 95e645d1addbaad4ab26251fd2bdde4c, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
   - {fileID: 1595881250035684, guid: d18a58184e042eb4cbffba24a88ad835, type: 3}
   - {fileID: 1481219685281736, guid: efaaef6408b20f545827e508b270405f, type: 3}
   - {fileID: 1624734060532954, guid: 3f906b96f01718f4aac8de5eda9888d0, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
   - {fileID: 1023276319236942, guid: cfcb6ecbdafd1c940b4dccdc2a3ae3ac, type: 3}
   - {fileID: 1092034201289170, guid: 1e3ebe3c9df04ae44b248326a7b1f3fd, type: 3}
   - {fileID: 1401117786091214, guid: 144d244740414c641992a2d495f2d345, type: 3}
@@ -657,13 +660,10 @@ MonoBehaviour:
   - {fileID: 1248756317068472, guid: 4d066123abe70604c93da5e7ef46e98d, type: 3}
   - {fileID: 1311691121833192, guid: f3497c2d5d40e9a49ab32a4db51b95a2, type: 3}
   - {fileID: 1452130660160706, guid: 012abc7abe0517b43ab980b30563df5f, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
-  - {fileID: 1956772784486313674, guid: 303b7e3e47aba8240b1773451220655a, type: 3}
+  - {fileID: 100000, guid: a834527aa1ce23a40857bdc293825f3a, type: 3}
+  - {fileID: 5007447582039843989, guid: a8cb7478987dda2438d2f6fed9b4f14d, type: 3}
+  - {fileID: 1007425100155797584, guid: 6f1d161ff9167a245a8864307f58fc5e, type: 3}
+  - {fileID: 1007425100155797584, guid: 6f1d161ff9167a245a8864307f58fc5e, type: 3}
   smallPrefabSpawnLocations:
   - {fileID: 6674899380058789423}
   - {fileID: 7110733523265838866}
@@ -702,6 +702,9 @@ MonoBehaviour:
   - {fileID: 4080920902149823723}
   - {fileID: 6441140442079144444}
   - {fileID: 6103501321382639643}
+  maximumXOffset: 5
+  yOffsetProposed: 1.5
+  maxAmountOfItems: 5
 --- !u!1 &5525354347343837808
 GameObject:
   m_ObjectHideFlags: 0

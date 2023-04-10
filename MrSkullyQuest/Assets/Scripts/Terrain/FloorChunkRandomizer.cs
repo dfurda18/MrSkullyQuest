@@ -12,6 +12,13 @@ public class FloorChunkRandomizer : MonoBehaviour
     [SerializeField] private GameObject[] largePrefabSpawnnLocations;                                           // Array containing all large spawn locations
     private byte spawnLocationIndex = 0;
 
+    [Header("Item spawn values")]
+    [Range(0,10)]
+    public float maximumXOffset = 5;
+    public float yOffsetProposed = 1.5f;
+    public int maxAmountOfItems = 5;
+    private float yOffset;
+
     private void Start()
     {
         PupulateFloorChunk(smallPrefabsArray, smallPrefabSpawnLocations);
@@ -31,17 +38,28 @@ public class FloorChunkRandomizer : MonoBehaviour
             }
 
             byte randomArrayIndex = (byte)Random.Range(0, prefabArray.Length);
+            if (randomArrayIndex < maxAmountOfItems && prefabArray.Length > 10) {
+                if (randomArrayIndex < 3) yOffset = 1f;
+                else yOffset = yOffsetProposed;
+                GameObject prefabToBeSpawned = Instantiate(prefabArray[randomArrayIndex],
+                    new Vector3(Random.Range(-maximumXOffset, maximumXOffset), yOffset, spawnnLocations[spawnLocationIndex].transform.position.z),
+                     Quaternion.Euler(0, -35, 0));
+            }
+            else { 
 
-            GameObject prefabToBeSpawned = Instantiate(prefabArray[randomArrayIndex],                      // Sets the prefab to be spawned at the specified location
-                spawnnLocations[spawnLocationIndex].transform.position,
-               spawnnLocations[spawnLocationIndex].transform.rotation);
+                GameObject prefabToBeSpawned = Instantiate(prefabArray[randomArrayIndex],                      // Sets the prefab to be spawned at the specified location
+                    spawnnLocations[spawnLocationIndex].transform.position,
+                   spawnnLocations[spawnLocationIndex].transform.rotation);
 
-            prefabToBeSpawned.transform.SetParent(spawnnLocations[spawnLocationIndex].transform);      // Sets the spawn location as parent of the prefab being
-                                                                                                                 // spawned
+                prefabToBeSpawned.transform.SetParent(spawnnLocations[spawnLocationIndex].transform);      // Sets the spawn location as parent of the prefab being
+                                                                                                           // spawned
+                //prefabToBeSpawned.transform.parent.localScale = new Vector3(1,1,1);
 
-            Quaternion target = Quaternion.Euler(0, -35, 0);
+                Quaternion target = Quaternion.Euler(0, -35, 0);
 
-           // transform.rotation = Quaternion.RotateTowards(transform.rotation, target, 0);
+            }
+
+            // transform.rotation = Quaternion.RotateTowards(transform.rotation, target, 0);
         }
     }
 

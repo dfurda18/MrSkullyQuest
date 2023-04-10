@@ -42,9 +42,24 @@ public class StoryAnimation
     public StoryAnimation (JSONAnimations animation)
     {
         this.id = animation.image;
-        this.image = AssetDatabase.LoadAssetAtPath<Sprite>(animation.image);
+        //this.image = AssetDatabase.LoadAssetAtPath<Sprite>(animation.image);
+        this.image = GetSprites(animation.image);
+        //Debug.LogError(animation.image);
         this.speed = animation.speed;
         this.startPosition = new Vector3(animation.startPosition.x, animation.startPosition.y, 0.0f);
         this.endPosition = new Vector3(animation.endPosition.x, animation.endPosition.y, 0.0f);
+    }
+
+    /**
+     *  AssetDatabase  only works in the editor.
+     *  This block loads elements using an Object load asset
+     *  @param filename The path to the elements
+     *  @author David Lopez
+     *  @since third iteration delivery date
+     */
+    Sprite GetSprites(string fileName)
+    {
+        Sprite sprites = Resources.Load<Sprite>(fileName);
+        return sprites;
     }
 }
