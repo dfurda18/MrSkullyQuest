@@ -21,7 +21,7 @@ public class MainManager : MonoBehaviour
     /**
      * The location of the levels directory
      */
-    private static string contentsURL = "Assets/Content/";
+    private static string contentsURL = "/StreamingAssets/Content/";
     /**
      * The instance of this object
      */
@@ -106,7 +106,7 @@ public class MainManager : MonoBehaviour
         string[] nameSplit;
 
         // Get the file list
-        DirectoryInfo info = new DirectoryInfo(contentsURL);
+        DirectoryInfo info = new DirectoryInfo(Application.dataPath + contentsURL);
         FileInfo[] files = info.GetFiles();
         for (int fileCounter = 0; fileCounter < files.Length; fileCounter++)
         {
@@ -142,7 +142,7 @@ public class MainManager : MonoBehaviour
 
                 // Add the level type and file name
                 levelTypes.Add((int)levelType);
-                levels.Add(contentsURL + files[fileCounter].Name);
+                levels.Add(Application.dataPath + contentsURL + files[fileCounter].Name);
             }
         }
     }

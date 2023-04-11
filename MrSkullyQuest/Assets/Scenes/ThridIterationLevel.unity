@@ -639,6 +639,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 2113025291}
+    - target: {fileID: 1149188862, guid: 8a3e7e01063ceb341a44e68a3fb8981f, type: 3}
+      propertyPath: soundVolume
+      value: 0.936
+      objectReference: {fileID: 0}
     - target: {fileID: 14466253105886473, guid: 8a3e7e01063ceb341a44e68a3fb8981f, type: 3}
       propertyPath: m_Name
       value: SkullyPLayer
@@ -703,6 +707,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 2113025291}
+    - target: {fileID: 14466253105886478, guid: 8a3e7e01063ceb341a44e68a3fb8981f, type: 3}
+      propertyPath: soundVolume
+      value: 0.781
+      objectReference: {fileID: 0}
     - target: {fileID: 14466253105886478, guid: 8a3e7e01063ceb341a44e68a3fb8981f, type: 3}
       propertyPath: pause_Screen
       value: 
