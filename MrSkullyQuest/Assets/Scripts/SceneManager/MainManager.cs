@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
@@ -54,6 +55,22 @@ public class MainManager : MonoBehaviour
      * The player's Current Life
      */
     public static int CURRENT_LIFE = 3;
+    /**
+     * Whether or not the scene is loading
+     */
+    private bool loading = false;
+    /**
+     * The loading state
+     */
+    private int loadingState;
+    /**
+     * The progressbarr variable
+     */
+    private float progress;
+    /**
+     * The async operation
+     */
+    private UnityEngine.AsyncOperation asyncOperation;
 
     /**
      * Mewhod calld at the begining of the load
@@ -73,6 +90,37 @@ public class MainManager : MonoBehaviour
         levelTypes = new List<int>();
         currentLevel = 0;
         LoadLevels();
+    }
+    /**
+     * Mewhod calld when loading a scene.
+     */
+    private void Update()
+    {
+        if(this.loading)
+        {
+            switch (this.loadingState)
+            {
+                case 0:
+                    LoaderUI.SetActive(true);
+                    this.loadingState++;
+                    break;
+                case 1:
+                    StartCoroutine(this.LoadScene_Coroutine(GetCurrentScene()));
+                    this.loadingState++;
+                    break;
+                case 2:
+                    
+                    break;
+                case 3:
+                    asyncOperation.allowSceneActivation = true;
+                    break;
+                case 4:
+                    LoaderUI.SetActive(false);
+                    this.loading = false;
+                    break;
+            }
+        }
+        
     }
     /**
      * Starts a new Game
@@ -154,7 +202,7 @@ public class MainManager : MonoBehaviour
      */
     public static string GetCurrentLevel()
     {
-        return levels[currentLevel];
+        return levels != null ? levels[currentLevel] : "";
     }
     /**
      * Loads a scene using the loading scene while the scene is been loaded.
@@ -163,8 +211,9 @@ public class MainManager : MonoBehaviour
      */
     public void LoadScene()
     {
-        LoaderUI.SetActive(true);
-        StartCoroutine(this.LoadScene_Coroutine(GetCurrentScene()));
+        this.loadingState = 0;
+        this.progress = 0.0f;
+        this.loading = true;        
     }
     /**
      * Returns the current scene to load.
@@ -193,9 +242,9 @@ public class MainManager : MonoBehaviour
         progressSlider.value = 0;
 
         // Load the level asynchronously
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
+        asyncOperation = SceneManager.LoadSceneAsync(scene);
         asyncOperation.allowSceneActivation = false;
-        float progress = 0;
+        //float progress = 0;
 
         while (!asyncOperation.isDone)
         {
@@ -204,11 +253,11 @@ public class MainManager : MonoBehaviour
             if (progress >= 0.9f)
             {
                 progressSlider.value = 1;
-                asyncOperation.allowSceneActivation = true;
-                
+                this.loadingState++;
             }
             yield return null;
         }
+        this.loadingState++;
     }
     /**
      * Hides the loading screen
@@ -217,6 +266,9 @@ public class MainManager : MonoBehaviour
      */
     public static void HideLoadingScreen()
     {
-        Instance.LoaderUI.SetActive(false);
+        if(Instance != null)
+        {
+            Instance.LoaderUI.SetActive(false);
+        }
     }
 }
