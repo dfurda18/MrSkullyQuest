@@ -128,16 +128,16 @@
             ]
         },
         {
-            "background": "Assets/Images/StoryScenes/Backgrounds/PastBackground.png",
+            "background": "Images/StoryScenes/Backgrounds/PastBackground",
             "dialogues": [
                 {
                     "character" : "Narrator",
                     "dialogue" : "Mr. Skully realized this and tried to halt. But Alas! This caused a series of secondary effects.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
                             "type": "Traslation",
-                            "image" : "Assets/Images/StoryScenes/Elements/Transition_Animation/transition00.png",
+                            "image" : "Images/StoryScenes/Transition_Animation/transition00",
                             "speed" : 10,
                             "startPosition" : {
                                 "x" : 0,
@@ -153,11 +153,11 @@
                 {
                     "character" : "Narrator",
                     "dialogue" : "Bewitching his body to rot and all remained were his bones.",
-                    "avatar" : "Assets/Images/Avatars/Narrator.png",
+                    "avatar" : "Images/Avatars/Narrator",
                     "animations" : [
                         {
                             "type": "FrameToFrame",
-                            "image" : "Assets/Images/StoryScenes/Elements/Transition_Animation/transition00.png",
+                            "image" : "Images/StoryScenes/Transition_Animation/transition00",
                             "speed" : 1,
                             "loop" : false
                         }

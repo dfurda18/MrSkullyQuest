@@ -82,19 +82,13 @@ public class StoryAnimation
                 string[] nameSplit;
                 // Get the file list
                 string folder = animation.image.Substring(0, animation.image.LastIndexOf("/"));
-                DirectoryInfo info = new DirectoryInfo(folder);
+                DirectoryInfo info = new DirectoryInfo(Application.dataPath + "/" + folder);
                 FileInfo[] files = info.GetFiles();
-                for (int fileCounter = 0; fileCounter < files.Length; fileCounter++)
+                Sprite[] animationSprites = Resources.LoadAll<Sprite>(folder);
+                Debug.Log(animationSprites.Length);
+                for (int fileCounter = 0; fileCounter < animationSprites.Length; fileCounter++)
                 {
-                    // Get the file extension
-                    nameSplit = files[fileCounter].Name.Split(".");
-                    extension = nameSplit[nameSplit.Length - 1];
-
-                    // Make sure to add only pngs
-                    if (extension == "png")
-                    {
-                        animationImages.Add(AssetDatabase.LoadAssetAtPath<Sprite>(folder + "/" + files[fileCounter].Name));
-                    }
+                    animationImages.Add(animationSprites[fileCounter]);
                 }
                 break;
             default:
