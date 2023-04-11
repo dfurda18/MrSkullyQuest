@@ -82,10 +82,7 @@ public class StoryAnimation
                 string[] nameSplit;
                 // Get the file list
                 string folder = animation.image.Substring(0, animation.image.LastIndexOf("/"));
-                DirectoryInfo info = new DirectoryInfo(Application.dataPath + "/" + folder);
-                FileInfo[] files = info.GetFiles();
                 Sprite[] animationSprites = Resources.LoadAll<Sprite>(folder);
-                Debug.Log(animationSprites.Length);
                 for (int fileCounter = 0; fileCounter < animationSprites.Length; fileCounter++)
                 {
                     animationImages.Add(animationSprites[fileCounter]);
